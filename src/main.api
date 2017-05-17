@@ -1,0 +1,11 @@
+
+// the entry point of any api must be the api closure
+api {
+
+    // import the entities from "entities.api" file
+    import "entities"
+
+    // import the api groups, both version 1 and version 2
+    import "v1"
+    import "v2"
+}

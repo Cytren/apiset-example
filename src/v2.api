@@ -1,0 +1,28 @@
+
+group "v2" {
+
+    // add the token parameter to every endpoint
+    inject test: integer
+
+    // create a group of endpoints called "account"
+    group "account" {
+
+        // create a get endpoint which returns the users account, takes no parameters
+        get "self" returns Account {}
+    }
+
+    group "social" {
+
+        // create a get endpoint called friends that returns a list of users
+        get "friends" returns [User] {
+            limit: integer = 10 (* >= && * <= 10)   /* endpoint takes parameter of integer, default value is
+                                                       10 if not defined, must be between 1 and 10 */
+        }
+
+        // create a post endpoint which returns nothing
+        post "comment" {
+            message: string                   // message to post
+            replyTo: User? (!*.isBanned)      // optional user to reply to, user must not be banned
+        }
+    }
+}

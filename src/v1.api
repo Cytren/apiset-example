@@ -1,0 +1,40 @@
+
+group "v1" {
+
+    // add the token parameter to every endpoint
+    inject token: string
+
+    // create a group of endpoints called "account"
+    group "account" {
+
+        // create a get endpoint which returns the users account, takes no parameters
+        get "self" returns Account {}
+
+		// create a new instance of account
+		post "self" {}
+		
+		// update existing instance of account
+		put "self" {}
+		
+        // delete the users account
+        delete "self" {}
+
+        // create a get endpoint called friends that returns a set of users
+        get "friends" returns <User> {
+            limit: integer = 10 (* >= && * <= 10)   /* endpoint takes parameter of integer, default value is
+                                                       10 if not defined, must be between 1 and 10 */
+        }
+
+        // create a post endpoint which returns nothing
+        post "comment" {
+            message: string                   // message to post
+            replyTo: User? (!*.isBanned)      // optional user to reply to, user must not be banned
+        }
+    }
+
+    // simple get endpoint at the root of the group
+    get "help" returns string {
+        query: string
+    }
+
+}

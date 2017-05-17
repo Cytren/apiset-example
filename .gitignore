@@ -1,0 +1,7 @@
+
+.idea
+.git
+*.iml
+error-log.api
+build
+node_modules

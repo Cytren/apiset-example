@@ -1,0 +1,47 @@
+
+// create a user entity
+entity User {
+    id: integer
+    name: string = "User"
+    photo: string?
+    lastLogin: integer
+    isBanned: boolean
+    featureOn: Section? (photo!)    // section user is featured on (optional), photo is required to be featured
+}
+
+// create an account entity inheriting the properties of a user
+entity Account extends User {
+    email: string
+    address1: string
+    address2: string?
+    postcode: string
+    dateOfBirth: string
+}
+
+// create a post entity
+entity Post {
+    message: string
+    likes: integer (likes >= 0)     // number of likes, must be at least 0
+    shares: integer (* >= 0)        // number of shares using * shorthand to refer to itself, must be at least 0
+    pinnedBy: User? (likes >= 20)   // user who pinned the comment, must have at least 20 likes to be pinned
+}
+
+// create a feed entity
+entity Feed {
+    posts: [Post]                 // gets an array of posts
+    friendsPosts: <User, [Post]>  // maps a user to an array of posts
+}
+
+// create an entity with the different collection types
+entity CollectionTest {
+	testSet: <string>           // set of strings
+    testList: [string]          // list of strings
+	testMap: <string, integer>  // map of strings to integers
+}
+
+// enum of sections of the site
+enum Section {
+    home
+    popular
+    profile
+}
