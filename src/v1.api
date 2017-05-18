@@ -11,10 +11,10 @@ group "v1" {
         get "self" returns Account {}
 
 		// create a new instance of account
-		post "self" {}
+		post "self" requests Account {}
 		
 		// update existing instance of account
-		put "self" {}
+		put "self" requests Account {}
 		
         // delete the users account
         delete "self" {}
